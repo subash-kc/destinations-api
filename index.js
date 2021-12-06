@@ -12,7 +12,11 @@ const server = express();
 //parse the any body that comes in json
 server.use(express.json())
 
-server.listen(3000);
+//console.log(process);
+
+server.listen(process.env.PORT || 3000, function() {
+    console.log("Listening to Port 3000")
+});
 
 //Post => create destinations
 //data => {name, location, photo, description}
