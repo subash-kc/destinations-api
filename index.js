@@ -16,7 +16,7 @@ server.use(express.json())
 
 server.use(cors())
 
-server.use(express.urlencoded)
+server.use(express.urlencoded())
 
 //console.log(process);
 
