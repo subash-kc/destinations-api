@@ -2,6 +2,8 @@ const express = require("express")
 
 let {destinations} = require('./db')
 
+const cors = require('cors')
+
 const fetch = require('node-fetch')
 
 //console.log(destinations)
@@ -11,6 +13,8 @@ const {generateUniqueId}= require('./services')
 const server = express();
 //parse the any body that comes in json
 server.use(express.json())
+
+server.use(cors())
 
 //console.log(process);
 
