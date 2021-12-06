@@ -14,8 +14,10 @@ server.use(express.json())
 
 //console.log(process);
 
-server.listen(process.env.PORT || 3000, function() {
-    console.log("Listening to Port 3000")
+let PORT = process.env.PORT || 3000;
+
+server.listen(PORT, function() {
+    console.log(`Server Listening on PORT ${PORT}`);
 });
 
 //Post => create destinations
