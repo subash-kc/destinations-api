@@ -41,7 +41,7 @@ server.post("/destinations", async (req, res)=>{
 
     const dest = { id: generateUniqueId(), name, location };
 
-    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
+    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${encodeURIComponent(Location)}`
 
     const fetchRes = await fetch(UNSPLASH_URL);
     const data = await fetchRes.json()
