@@ -24,6 +24,4 @@ async function getUnsplashPhoto( { name , location }) {
 
 }
 
-module.exports = {generateUniqueId}
-
-module.exports = {getUnsplashPhoto}
+module.exports = {generateUniqueId, getUnsplashPhoto}
