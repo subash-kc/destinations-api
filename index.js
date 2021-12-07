@@ -90,7 +90,7 @@ server.put("/destinations/", (req, res)=>{
                 dest.name = name;
             }
 
-        }
+    
             
             if(location !==undefined) {
                 dest.location = location;
