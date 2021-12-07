@@ -57,6 +57,7 @@ server.post("/destinations", async (req, res)=>{
 })
 
 server.get("/destinations", (req, res) => {
+    console.log('destinations', destinations)
    res.send(destinations);
 })
 
@@ -81,10 +82,10 @@ server.put("/destinations/:id", (req, res)=>{
 
     for(const dest of destinations) {
         if(dest.id ===id) {
-            // if(name || location){
-            //     const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
-            //     dest.photo = UNSPLASH_URL        
-            // }
+            if(name || location){
+                const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${encodeURIComponent(name)}`
+                dest.photo = UNSPLASH_URL        
+            }
             if(name !== undefined) {
                 dest.name = name;
             }
