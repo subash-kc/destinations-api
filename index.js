@@ -110,7 +110,7 @@ server.put("/destinations/:id", (req, res)=>{
     // res.redirect('/destinations')
 })
 
-//Delete a destination
+//Delete a destination add.
 //How to get the id from the reqs
 //route paramenters /destinations/:id => req.params.id
 //query /destinations?id=128478 => req.query.id
@@ -121,5 +121,5 @@ server.delete("/destinations/:id", (req,res)=>{
     destinations = newDestinations;
     //console.log(req.params.id)
 
-    res.status(303).redirect("/destinations")
+    res.send(destinations);
 })
