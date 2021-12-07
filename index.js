@@ -41,7 +41,7 @@ server.post("/destinations", async (req, res)=>{
 
     const dest = { id: generateUniqueId(), name, location };
 
-    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name}`
+    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
 
     const fetchRes = await fetch(UNSPLASH_URL);
     const data = await fetchRes.json()
@@ -83,7 +83,7 @@ server.put("/destinations/:id", (req, res)=>{
     for(const dest of destinations) {
         if(dest.id ===id) {
             if(name || location){
-                const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${encodeURIComponent(name)}`
+                const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
                 dest.photo = UNSPLASH_URL        
             }
             if(name !== undefined) {
