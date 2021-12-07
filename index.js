@@ -65,6 +65,7 @@ server.put("/destinations/:id", (req, res)=>{
 
 
     const {name, location, description} = req.body
+    const {id} = req.params;
 
     if(id ===undefined) {
         return res.status(400).json({ message: "id is required" })
