@@ -64,7 +64,7 @@ server.get("/destinations", (req, res) => {
 server.put("/destinations/:id", (req, res)=>{
 
 
-    const {name, location, photo, description} = req.body
+    const {name, location, description} = req.body
 
     if(id ===undefined) {
         return res.status(400).json({ message: "id is required" })
@@ -90,9 +90,9 @@ server.put("/destinations/:id", (req, res)=>{
             if(location !==undefined) {
                 dest.location = location;
             }
-            if(photo!==undefined) {
-                dest.photo = photo;
-            }
+            // if(photo!==undefined) {
+            //     dest.photo = photo;
+            // }
             if(description !== undefined) {
                 dest.description = description
             }
