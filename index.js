@@ -10,6 +10,8 @@ const fetch = require('node-fetch')
 
 const {generateUniqueId}= require('./services')
 
+const {getUnsplashPhoto} = require('./services')
+
 const server = express();
 //parse the any body that comes in json
 server.use(express.json())
@@ -62,8 +64,9 @@ server.get("/destinations", (req, res) => {
 })
 
 //put => edit 
-server.put("/destinations/:id", (req, res)=>{
+server.put("/destinations/", (req, res)=>{
 
+    const { id, name, location, description } = req.body
 
     const {name, location, description} = req.body
     const {id} = req.params;
@@ -82,19 +85,24 @@ server.put("/destinations/:id", (req, res)=>{
 
     for(const dest of destinations) {
         if(dest.id ===id) {
-            if(name || location){
-                const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
-                dest.photo = UNSPLASH_URL        
-            }
-            if(name !== undefined) {
+
+           if(name !== undefined) {
                 dest.name = name;
             }
+
+        }
+            
             if(location !==undefined) {
                 dest.location = location;
             }
-            // if(photo!==undefined) {
-            //     dest.photo = photo;
-            // }
+
+            if(name!== undefined || location !== undefined) {
+                dest.photo = await getUnsplashPhoto({
+                    name: dest.name,
+                    location: dest.location
+                })
+            }
+
             if(description !== undefined) {
                 dest.description = description
             }
