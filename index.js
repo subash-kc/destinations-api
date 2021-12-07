@@ -121,7 +121,5 @@ server.delete("/destinations/:id", (req,res)=>{
     destinations = newDestinations;
     //console.log(req.params.id)
 
-    res.redirect("/destinations")
-
-
+    res.status(303).redirect("/destinations")
 })
