@@ -4,21 +4,21 @@ let {destinations} = require('./db')
 
 const cors = require('cors')
 
-const fetch = require('node-fetch')
+//const fetch = require('node-fetch')
 
 //console.log(destinations)
 
-const {generateUniqueId}= require('./services')
-
-const {getUnsplashPhoto} = require('./services')
+const {generateUniqueId, getUnsplashPhoto}= require('./services')
 
 const server = express();
+
+const connectionString = 'mongodb+srv://abc123:abcabc@cluster0.dhn89.mongodb.net/demodb?retryWrites=true&w=majority'
 //parse the any body that comes in json
 server.use(express.json())
 
 server.use(cors())
 
-server.use(express.urlencoded())
+server.use(express.urlencoded({ extended: true }))
 
 //console.log(process);
 
@@ -43,12 +43,7 @@ server.post("/destinations", async (req, res)=>{
 
     const dest = { id: generateUniqueId(), name, location };
 
-    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
-
-    const fetchRes = await fetch(UNSPLASH_URL);
-    const data = await fetchRes.json()
-
-    dest.photo = data.urls.small;
+    dest.photo = await getUnsplashPhoto({name, location})
 
     if (description && description.length !==0) {
         dest.description = description;
@@ -64,12 +59,9 @@ server.get("/destinations", (req, res) => {
 })
 
 //put => edit 
-server.put("/destinations/", (req, res)=>{
+server.put("/destinations/", async (req, res)=>{
 
     const { id, name, location, description } = req.body
-
-    const {name, location, description} = req.body
-    const {id} = req.params;
 
     if(id ===undefined) {
         return res.status(400).json({ message: "id is required" })
@@ -86,12 +78,10 @@ server.put("/destinations/", (req, res)=>{
     for(const dest of destinations) {
         if(dest.id ===id) {
 
-           if(name !== undefined) {
+            if(name !== undefined) {
                 dest.name = name;
             }
 
-    
-            
             if(location !==undefined) {
                 dest.location = location;
             }
@@ -110,14 +100,6 @@ server.put("/destinations/", (req, res)=>{
         }
     }
     
-   
-
-    //console.log(destId);
-
-    // const newDestinations = destinations.filter((dest)=>dest.id!==destId)
-    // destinations = newDestinations;
-
-    // res.redirect('/destinations')
 })
 
 //Delete a destination add.

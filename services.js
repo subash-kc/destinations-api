@@ -14,13 +14,12 @@ function generateUniqueId() {
 }
 
 async function getUnsplashPhoto( { name , location }) {
-    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&q=${name} ${location}`
+    const UNSPLASH_URL = `https://api.unsplash.com/photos/random?client_id=H1u5tbyFY_ziw-O82Ll_5WLww9Ar7VHS_h-SqbIBDfQ&query=${name} ${location}`
 
-    const fetchRes = await(UNSPLASH_URL);
+    const fetchRes = await fetch(UNSPLASH_URL);
     const data = await fetchRes.json();
 
     return data.urls.small;
-
 
 }
 
